@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pengumuman Seleksi Pengurus OSIS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Wajib biar responsif -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
+  <div class="w-full max-w-md bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
+    <!-- Judul -->
+    <h1 class="text-xl sm:text-2xl font-bold text-center text-blue-700 mb-4 sm:mb-6">
+      Pengumuman Seleksi Pengurus OSIS<br>
+      <span class="text-base sm:text-lg">SMANSALA 2025</span>
+    </h1>
+
+    <!-- Input -->
+    <label class="block mb-2 text-gray-700 text-sm sm:text-base">Masukkan Nomor Pendaftaran:</label>
+    <input id="nomorInput" type="text" 
+      class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 mb-4 text-sm sm:text-base" 
+      placeholder="contoh: 20250123">
+
+    <button onclick="cekHasil()" 
+      class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold text-sm sm:text-base">
+      Cek Hasil
+    </button>
+
+    <!-- Hasil -->
+    <div id="hasil" class="mt-6 text-center text-base sm:text-lg font-bold"></div>
+  </div>
+
+  <script>
+    // Data hasil seleksi (contoh)
+    const dataSeleksi = {
+      "20250123": { nama: "Zafran Aqeel", status: "LULUS" },
+      "20250124": { nama: "Naufal", status: "TIDAK LULUS" },
+      "20250125": { nama: "Aisyah", status: "LULUS" }
+    };
+
+    function cekHasil() {
+      const input = document.getElementById("nomorInput").value.trim();
+      const hasilDiv = document.getElementById("hasil");
+
+      if (input in dataSeleksi) {
+        const peserta = dataSeleksi[input];
+        if (peserta.status === "LULUS") {
+          hasilDiv.innerHTML = `
+            <p class="text-green-600 text-lg sm:text-xl">SELAMAT ??</p>
+            <p class="mt-2">${peserta.nama} dinyatakan 
+              <span class="text-green-700">${peserta.status}</span> sebagai Pengurus OSIS.</p>
+          `;
+        } else {
+          hasilDiv.innerHTML = `
+            <p class="text-red-600 text-lg sm:text-xl">Mohon Maaf</p>
+            <p class="mt-2">${peserta.nama} dinyatakan 
+              <span class="text-red-700">${peserta.status}</span>.</p>
+          `;
+        }
+      } else {
+        hasilDiv.innerHTML = `<p class="text-gray-600 text-base sm:text-lg">Nomor pendaftaran tidak ditemukan ?</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
